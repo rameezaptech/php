@@ -4,7 +4,7 @@ include('admin/includes/sidebar.php');
 include('admin/includes/topbar.php');
 include('config.php');
 
-$products_query = "SELECT *from products order by cid desc";
+$products_query = "SELECT *from `products` as p inner join `category` as c on p.category = c.id ";
 $conn_query = mysqli_query($connection , $products_query);
 if(mysqli_num_rows($conn_query) > 0){
 
@@ -43,9 +43,9 @@ if(mysqli_num_rows($conn_query) > 0){
                     while($pro_data = mysqli_fetch_assoc($conn_query)){
                     ?>
                     <tr>
-                    <th scope="row"><?php echo $pro_data['cid'] ?></th>
+                    <th scope="row"><?php echo $pro_data['id'] ?></th>
                     <td><?php echo $pro_data['title'] ?></td>
-                    <td><?php echo $pro_data['category'] ?></td>
+                    <td><?php echo $pro_data['cname'] ?></td>
                     <td><?php echo $pro_data['description'] ?></td>
                     <td><img src = "<?php  echo 'images/' . $pro_data['image'] ?>" alt= "" width = "100px" height = "100px"></td>
                     <td><?php echo $pro_data['description'] ?></td>
