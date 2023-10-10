@@ -34,9 +34,13 @@ if(mysqli_num_rows($conn_query) > 0){
                     <th scope="col">description</th>
                     <th scope="col">Image</th>
                     <th scope="col">ACTION</th>
-                    <th scope="col">delete</th>
+                   
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
                     
                     </tr>
+
+        
                 </thead>
                 <tbody>
                     <?php
@@ -48,7 +52,7 @@ if(mysqli_num_rows($conn_query) > 0){
                     <td><?php echo $pro_data['cname'] ?></td>
                     <td><?php echo $pro_data['description'] ?></td>
                     <td><img src = "<?php  echo 'images/' . $pro_data['image'] ?>" alt= "" width = "100px" height = "100px"></td>
-                    <td><?php echo $pro_data['description'] ?></td>
+                 
 
                     <td> <?php
                   if($pro_data['status']==1){
@@ -58,6 +62,8 @@ if(mysqli_num_rows($conn_query) > 0){
                 }
                     ?>
                     </td>
+                    <td ><a href="update.php?id=<?php echo $pro_data['pid'] ?>" class="btn btn-success" >Update</a></td>
+                    <td ><a href="delete.php?id=<?php echo $pro_data['pid'] ?>" class="btn btn-danger">Delete</a></td>
                 </tr>
 
 <?php

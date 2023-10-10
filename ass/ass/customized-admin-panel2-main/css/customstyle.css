@@ -1,0 +1,12 @@
+.form-login-bg{
+    background-image: url(../img/loginuser.png);
+    background-size: cover;
+    background-position: center;
+    
+}
+.form-reg-bg{
+    background-image: url(../img/registeruser.png);
+    background-size: cover;
+    background-position: center;
+
+}
