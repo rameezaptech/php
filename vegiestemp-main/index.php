@@ -1,6 +1,6 @@
 <?php
-include('includes/header.php')
-
+include('includes/header.php');
+include('config.php')
 ?>
     <!-- Header Section End -->
 
@@ -70,31 +70,27 @@ include('includes/header.php')
         <div class="container">
             <div class="row">
                 <div class="categories__slider owl-carousel">
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-1.jpg">
-                            <h5><a href="#">Fresh Fruit</a></h5>
+                <?php
+                $products_query = "SELECT *from `products` as p inner join `category` as c on p.category = c.id ";
+                $conn_query = mysqli_query($connection , $products_query);
+                if(mysqli_num_rows($conn_query) > 0){
+                    while($row = mysqli_fetch_assoc($conn_query)){
+                ?>
+                
+                <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="<?php echo 'adminpanel/images/'.$row['image']; ?>">
+                            <h5><a href="#"><?php echo $row['title'] ?></a></h5>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-2.jpg">
-                            <h5><a href="#">Dried Fruit</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-3.jpg">
-                            <h5><a href="#">Vegetables</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-4.jpg">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-5.jpg">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
+                    <?php
+                        
+                } 
+            }
+             
+             
+             
+             ?>
+               
                 </div>
             </div>
         </div>
