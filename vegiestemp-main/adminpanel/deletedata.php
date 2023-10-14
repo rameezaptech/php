@@ -2,7 +2,7 @@
 include('admin/includes/header.php');
 include('admin/includes/sidebar.php');
 include('admin/includes/topbar.php');
-include('config.php');
+include('../config.php');
 
 $products_query = "SELECT *from `products` as p inner join `category` as c on p.category = c.id ";
 $conn_query = mysqli_query($connection , $products_query);

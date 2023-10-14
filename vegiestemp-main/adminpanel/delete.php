@@ -1,5 +1,5 @@
 <?php
-  require('config.php');
+  require('../config.php');
   
     $user_id = $_GET['id'];
     

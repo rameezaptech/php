@@ -2,7 +2,7 @@
 include('admin/includes/header.php');
 include('admin/includes/sidebar.php');
 include('admin/includes/topbar.php');
-include('config.php');
+include('../config.php');
 
 
 
