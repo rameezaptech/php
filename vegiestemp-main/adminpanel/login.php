@@ -1,3 +1,52 @@
+
+<?php 
+session_start();
+if(isset($_SESSION['useremail'])){
+    header('location:index.php');
+}
+require "../config.php";
+
+if(isset($_POST['submit'])){
+    $log_email = $_POST['login_email'];
+    $log_pass = $_POST['login_pass'];
+
+    $fetch_db_info = "SELECT * from `admin` where email = '$log_email'";
+
+    $run_query = mysqli_query($connection, $fetch_db_info);
+
+    if($run_query){
+        if(mysqli_num_rows($run_query) > 0){
+            $data = mysqli_fetch_assoc($run_query);
+
+            $db_pass = $data['pass'];
+            
+            
+            if($db_pass == $log_pass){
+        
+                $_SESSION['useremail'] = $data['email'];
+                $_SESSION['userpass'] = $data['pass'];
+                
+                echo "<script> alert ('login successful')
+                window.location.href='index.php';
+                </script>";
+              
+            }
+            else{
+                echo "<script> alert ('login failed')</script>";
+            }
+        }else{
+            echo "<script> alert ('Invalid Email')</script>";
+    
+        }
+    }
+      
+
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,14 +91,14 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" action="login.php" method="POST">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
+                                            <input type="email" name="login_email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
+                                            <input type="password" name="login_pass" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
                                         <div class="form-group">
@@ -59,16 +108,11 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </a>
+                                        <input type="submit" name="submit" value="Login" class="btn btn-primary btn-user btn-block">
+                                            
+                                        
                                         <hr>
-                                        <a href="index.html" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Login with Google
-                                        </a>
-                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                                        </a>
+                                       
                                     </form>
                                     <hr>
                                     <div class="text-center">
@@ -98,6 +142,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
 
 </body>
 
