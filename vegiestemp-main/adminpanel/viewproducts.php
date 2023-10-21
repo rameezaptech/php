@@ -4,7 +4,21 @@ include('admin/includes/sidebar.php');
 include('admin/includes/topbar.php');
 include('../config.php');
 
-$products_query = "SELECT *from `products` as p inner join `category` as c on p.category = c.id ";
+
+//display products
+$limit = 3 ;
+if(isset($_GET['pgno'])){
+    $pgno = $_GET['pgno'];
+}else{
+    $pgno = 1;
+}
+
+$start = ($pgno - 1)* $limit; //select * from products limit 0,3;
+
+
+
+$products_query = "SELECT * from `products` as p inner join `category` as c on p.category = c.id order by id
+DESC limit {$start},{$limit}";
 $conn_query = mysqli_query($connection , $products_query);
 if(mysqli_num_rows($conn_query) > 0){
 
@@ -74,18 +88,40 @@ if(mysqli_num_rows($conn_query) > 0){
 
 
 ?>
-
-                </tbody>
+   </tbody>
             </table>
-            <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-            </nav>
+
+<!-- Pagination Work -->
+<?php
+$pagination = "SELECT * FROM `products`";
+$res = mysqli_query($connection,$pagination);
+if(mysqli_num_rows($res)>0){
+    $total_records = mysqli_num_rows($res);  //5records
+    $total_pages = ceil($total_records / $limit); //roundip the number
+    echo ' <ul class="pagination">';
+
+    if($pgno > 1){
+        echo '<li class="page-item "><a class="page-link" href="viewproducts.php?pgno='.($pgno - 1).'">Prev</a></li>';
+   
+    }
+
+    for($i=1;$i <= $total_pages; $i++){
+
+        $active = $i == $pgno? 'active' : '';
+
+        echo '<li class="page-item '.$active.'"><a class="page-link" href="viewproducts.php?pgno='.$i.'">'.$i.'</a></li>';
+    }
+
+    if($pgno < $total_pages){
+        echo '<li class="page-item "><a class="page-link" href="viewproducts.php?pgno='.($pgno + 1 ).'">Next</a></li>';
+    
+    }
+    echo '</ul>' ;
+}
+
+ ?>            
+       
+       <!-- </nav> -->
 
             </div>
 
