@@ -1,7 +1,7 @@
 <?php
 include('config.php');
 
-$result = mysqli_query($connection,"SELECT * from user1");
+$result = mysqli_query($connection,"SELECT * from user2");
 if($result){
     if(mysqli_num_rows($result) > 0 ) {
         while($data = mysqli_fetch_assoc($result)){

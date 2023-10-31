@@ -13,6 +13,26 @@
 
 
     <body>
+
+    <nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <form class="d-flex input-group w-auto">
+      <input
+        type="search"
+        id = "input"
+        class="form-control rounded"
+        placeholder="Search"
+        aria-label="Search"
+        aria-describedby="search-addon"
+      />
+      <span class="input-group-text border-0" id="search-addon">
+        <i class="fas fa-search"></i>
+      </span>
+    </form>
+  </div>
+</nav>
+
+
 <div class="d-flex">
     <div class="container  mt-5">
         <div class="row">
@@ -97,6 +117,25 @@ function loaddata(){
         }       
             })
         })
+
+// for searching value
+let query = $('#input')
+// console.log(query)
+query.on ('keyup',function(){
+
+    $.ajax({
+        url : 'search.php',
+        method : 'POST',
+data : {
+    input : query.val()
+},
+success:function(data){
+    console.log(data);
+    tab.html(data)
+}
+    })
+
+})
 
     })
         
