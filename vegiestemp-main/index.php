@@ -37,7 +37,10 @@ include('config.php')
                                     All Categories
                                     <span class="arrow_carrot-down"></span>
                                 </div>
-                                <input type="text" placeholder="What do yo u need?">
+                                <input 
+                                type="search"
+                                id = "input"
+                                 placeholder="What do yo u need?">
                                 <button type="submit" class="site-btn">SEARCH</button>
                             </form>
                         </div>
@@ -524,6 +527,7 @@ include('config.php')
             </div>
         </div>
     </section>
+
     <!-- Blog Section End -->
 
     <!-- Footer Section Begin -->

@@ -56,7 +56,7 @@ if(mysqli_num_rows($conn_query) > 0){
 
         
                 </thead>
-                <tbody>
+                <tbody id="tab">
                     <?php
                     while($pro_data = mysqli_fetch_assoc($conn_query)){
                     ?>
@@ -128,7 +128,34 @@ if(mysqli_num_rows($res)>0){
         </div>
 
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+    <script>
+
+     $(document).ready(function(){
+        // for searching value
+let query = $('#input')
+let tab = $('#tab')
+// console.log(query)
+query.on ('keyup',function(){
+
+    $.ajax({
+        url : 'search.php',
+        method : 'POST',
+data : {
+    input : query.val()
+},
+success:function(data){
+    console.log(data);
+    tab.html(data)
+}
+    })
+
+})
+     })
+
+      
+        </script>
 
 </body>
 
